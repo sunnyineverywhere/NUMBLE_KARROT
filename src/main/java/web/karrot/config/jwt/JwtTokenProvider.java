@@ -89,7 +89,6 @@ public class JwtTokenProvider {
     }
      */
 
-
     public boolean validateToken(String jwtToken){
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(jwtToken);
@@ -100,6 +99,6 @@ public class JwtTokenProvider {
         catch (Exception e){
             return false;
         }
-
     }
+
 }
