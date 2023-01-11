@@ -12,12 +12,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import web.karrot.domain.entity.Member;
 import web.karrot.domain.repository.MemberRepository;
 
-import java.time.Duration;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 토큰 생성, 검증
@@ -70,7 +69,7 @@ public class JwtTokenProvider {
      */
 
     public Authentication getAuthentication(String token){
-        Member member = (Member) memberRepository.findByEmail(getMemberInfo(token));
+        Objects member = memberRepository.findByEmail(getMemberInfo(token));
         return new UsernamePasswordAuthenticationToken(member, "");
     }
 
