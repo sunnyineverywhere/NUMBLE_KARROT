@@ -5,7 +5,8 @@ import web.karrot.domain.entity.Member;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    Objects findByEmail(String memberInfo);
+    Optional<Member> findByEmail(String memberInfo);
 }

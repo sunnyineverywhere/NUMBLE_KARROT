@@ -1,11 +1,17 @@
 package web.karrot.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import web.karrot.controller.dto.LogInRequestDTO;
 import web.karrot.controller.dto.SignInRequestDTO;
+import web.karrot.controller.dto.response.BodyMessage;
+import web.karrot.controller.dto.response.CustomResponseEntity;
+import web.karrot.controller.dto.response.ResponseMessage;
+import web.karrot.controller.dto.response.StatusEnum;
 import web.karrot.service.MemberService;
 
 @RestController
@@ -16,8 +22,19 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/register")
-    public String signIn(@RequestBody SignInRequestDTO dto){
-        return memberService.registerMember(dto);
+    public CustomResponseEntity<BodyMessage> signIn(@RequestBody SignInRequestDTO dto){
+        String memberId = memberService.registerMember(dto);
+        BodyMessage body = BodyMessage.builder()
+                .status(StatusEnum.OK)
+                .message(ResponseMessage.CREATED_USER)
+                .data(memberId)
+                .build();
+        return new CustomResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public CustomResponseEntity<BodyMessage> logIn(@RequestBody LogInRequestDTO dto){
+        return memberService.login(dto);
     }
 
 }

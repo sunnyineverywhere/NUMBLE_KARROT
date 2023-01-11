@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import web.karrot.domain.entity.Member;
 import web.karrot.domain.repository.MemberRepository;
 
 import java.util.Base64;
@@ -69,7 +70,8 @@ public class JwtTokenProvider {
      */
 
     public Authentication getAuthentication(String token){
-        Objects member = memberRepository.findByEmail(getMemberInfo(token));
+        Member member = memberRepository.findByEmail(getMemberInfo(token))
+                .orElseThrow(() -> new IllegalArgumentException("토큰 발급 도중 문제가 발생하였습니다. 다시 시도해 주세요."));
         return new UsernamePasswordAuthenticationToken(member, "");
     }
 
