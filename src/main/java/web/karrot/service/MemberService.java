@@ -1,6 +1,5 @@
 package web.karrot.service;
 
-import io.jsonwebtoken.Header;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,21 +41,20 @@ public class MemberService {
         String accessToken = jwtTokenProvider.createAccessToken(member.getMemberId());
         headers.set("Authorization", accessToken);
 
-        if(accessToken == null){
+        if (accessToken == null) {
             BodyMessage body = BodyMessage.builder()
                     .status(StatusEnum.BAD_REQUEST)
                     .message(ResponseMessage.LOGIN_FAIL)
                     .data("토큰 발급 실패, 다시 로그인하세요.")
                     .build();
             return new CustomResponseEntity<>(body, HttpStatus.BAD_GATEWAY);
-        }
-        else{
+        } else {
             BodyMessage body = BodyMessage.builder()
                     .status(StatusEnum.OK)
                     .message(ResponseMessage.LOGIN_SUCCESS)
                     .data(member.getEmail() + " 로그인 성공")
                     .build();
-            return new CustomResponseEntity<>(body, headers ,HttpStatus.OK);
+            return new CustomResponseEntity<>(body, headers, HttpStatus.OK);
         }
     }
 }
