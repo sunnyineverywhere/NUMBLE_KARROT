@@ -3,6 +3,8 @@ package web.karrot.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import web.karrot.controller.dto.SignInRequestDTO;
+import web.karrot.controller.dto.response.BodyMessage;
+import web.karrot.controller.dto.response.CustomResponseEntity;
 import web.karrot.domain.entity.Member;
 import web.karrot.domain.repository.MemberRepository;
 
@@ -22,5 +24,9 @@ public class MemberService {
 
         Member newMember = memberRepository.save(member);
         return newMember.getMemberId().toString();
+    }
+
+    public CustomResponseEntity<BodyMessage> login() {
+
     }
 }
