@@ -3,6 +3,7 @@ package web.karrot.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.StreamingHttpOutputMessage;
 import org.springframework.stereotype.Service;
 import web.karrot.config.jwt.JwtTokenProvider;
 import web.karrot.controller.dto.LogInRequestDTO;
@@ -20,7 +21,17 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public String registerMember(SignInRequestDTO dto) {
+    public CustomResponseEntity<BodyMessage> registerMember(SignInRequestDTO dto) {
+
+        if(memberRepository.findByEmail(dto.getEmail()).isPresent() || memberRepository.findByPhoneNumber(dto.getPhoneNumber()).isPresent()){
+            BodyMessage body = BodyMessage.builder()
+                    .status(StatusEnum.BAD_REQUEST)
+                    .message(ResponseMessage.EXISTED_USER)
+                    .data(dto)
+                    .build();
+            return new CustomResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        }
+
         Member member = Member.builder()
                 .email(dto.getEmail())
                 .password(dto.getPassword())
@@ -28,9 +39,13 @@ public class MemberService {
                 .nickname(dto.getNickname())
                 .profile(dto.getProfile())
                 .build();
-
         Member newMember = memberRepository.save(member);
-        return newMember.getMemberId().toString();
+        BodyMessage body = BodyMessage.builder()
+                .status(StatusEnum.OK)
+                .message(ResponseMessage.CREATED_USER)
+                .data(member.getMemberId())
+                .build();
+        return new CustomResponseEntity<>(body, HttpStatus.OK);
     }
 
     public CustomResponseEntity<BodyMessage> login(LogInRequestDTO requestDTO) {

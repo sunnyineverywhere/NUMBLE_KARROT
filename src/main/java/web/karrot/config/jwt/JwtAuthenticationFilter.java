@@ -28,10 +28,12 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+        /*
         else{
             PrintWriter out = response.getWriter();
             out.println("토큰 인증에 실패하였습니다.");
         }
+         */
 
         chain.doFilter(request, response);
     }
