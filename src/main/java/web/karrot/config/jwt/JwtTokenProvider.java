@@ -17,7 +17,6 @@ import web.karrot.domain.repository.MemberRepository;
 
 import java.util.Base64;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * 토큰 생성, 검증
@@ -58,7 +57,7 @@ public class JwtTokenProvider {
     }
 
     public String createAccessToken(Long memberId){
-        return this.createToken(memberRepository.findById(memberId).toString(), accessTokenValidTime);
+        return this.createToken(memberRepository.findById(memberId).get().getEmail(), accessTokenValidTime);
     }
 
     /*
@@ -71,7 +70,7 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String token){
         Member member = memberRepository.findByEmail(getMemberInfo(token))
-                .orElseThrow(() -> new IllegalArgumentException("토큰 발급 도중 문제가 발생하였습니다. 다시 시도해 주세요."));
+                .orElseThrow(() -> new IllegalArgumentException("토큰으로 유저 정보를 확인할 수 없습니다."));
         return new UsernamePasswordAuthenticationToken(member, "");
     }
 
