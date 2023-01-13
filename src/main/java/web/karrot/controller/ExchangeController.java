@@ -29,4 +29,9 @@ public class ExchangeController {
         return exchangeService.removeExchange(member, reqeustDTO);
     }
 
+    @PutMapping
+    public CustomResponseEntity<BodyMessage> exchangeUpdate(@AuthMember Member member, @RequestBody ExchangeReqeustDTO reqeustDTO){
+        return exchangeService.updateExchange(member, reqeustDTO);
+    }
+
 }

@@ -31,6 +31,15 @@ public class ExchangeService {
                     HttpStatus.BAD_REQUEST
             );
         }
+        else if(exchangeRepository.findExchangeByBuyerAndProduct(member, product).isPresent()){
+            return new CustomResponseEntity<>(
+                    BodyMessage.builder()
+                            .status(StatusEnum.BAD_REQUEST)
+                            .message("이미 예약된 상품입니다")
+                            .build(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
         else{
             Exchange exchange = Exchange.builder()
                     .product(product)
@@ -69,6 +78,27 @@ public class ExchangeService {
                     BodyMessage.builder()
                             .status(StatusEnum.OK)
                             .message("신청하신 거래 예약을 삭제하였습니다.")
+                            .build(),
+                    HttpStatus.OK
+            );
+        }
+        return new CustomResponseEntity<>(
+                BodyMessage.builder()
+                        .status(StatusEnum.BAD_REQUEST)
+                        .message("잘못된 요청입니다.").build(),
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    public CustomResponseEntity<BodyMessage> updateExchange(Member member, ExchangeReqeustDTO reqeustDTO) {
+        Exchange exchange = exchangeRepository.findExchangeByProduct_ProductId(reqeustDTO.getProductId()).orElseThrow(() -> new IllegalArgumentException("조회되지 않는 거래내역입니다."));
+        if(exchange.buyer.equals(member) || exchange.getProduct().getMember().equals(member)){
+            exchange.setIsCompleted();
+            return new CustomResponseEntity<>(
+                    BodyMessage.builder()
+                            .status(StatusEnum.OK)
+                            .message("거래가 완료되었습니다.")
+                            .data(exchangeRepository.save(exchange))
                             .build(),
                     HttpStatus.OK
             );

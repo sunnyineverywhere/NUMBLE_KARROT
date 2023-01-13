@@ -32,4 +32,8 @@ public class Exchange extends BaseTimeEntity{
         this.product = product;
         this.isCompleted = isCompleted;
     }
+
+    public void setIsCompleted(){
+        this.isCompleted = true;
+    }
 }
