@@ -31,6 +31,15 @@ public class ExchangeService {
                     HttpStatus.BAD_REQUEST
             );
         }
+        else if(exchangeRepository.findExchangeByBuyerAndProduct(member, product).isPresent()){
+            return new CustomResponseEntity<>(
+                    BodyMessage.builder()
+                            .status(StatusEnum.BAD_REQUEST)
+                            .message("이미 예약된 상품입니다")
+                            .build(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
         else{
             Exchange exchange = Exchange.builder()
                     .product(product)
