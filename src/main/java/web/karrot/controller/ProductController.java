@@ -2,6 +2,10 @@ package web.karrot.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import web.karrot.config.annotation.AuthMember;
 import web.karrot.controller.dto.ProductAddRequestDTO;
 import web.karrot.controller.dto.response.BodyMessage;
@@ -21,7 +25,7 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public CustomResponseEntity<BodyMessage> productList(){
+    public CustomResponseEntity<BodyMessage> productList() {
         return productService.findProduct();
     }
 }
