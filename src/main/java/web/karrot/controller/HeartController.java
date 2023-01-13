@@ -21,6 +21,9 @@ public class HeartController {
         return heartService.heartAdd(member, requestDTO.getProductId());
     }
 
-    
+    @GetMapping
+    public CustomResponseEntity<BodyMessage> findHeartByMember(@AuthMember Member member){
+        return heartService.heartFind(member);
+    }
 
 }

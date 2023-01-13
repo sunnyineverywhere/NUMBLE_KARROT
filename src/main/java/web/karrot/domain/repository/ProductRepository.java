@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByMember(Member member);
+
+    Optional<Product> deleteProductByProductIdAndMember(Long productId, Member member);
 }

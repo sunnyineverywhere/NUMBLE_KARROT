@@ -3,6 +3,7 @@ package web.karrot.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.karrot.controller.dto.ProductAddRequestDTO;
 import web.karrot.controller.dto.ProductResponseDTO;
 import web.karrot.controller.dto.response.BodyMessage;
@@ -93,5 +94,16 @@ public class ProductService {
                 .data(responseDTOList)
                 .build();
         return new CustomResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    @Transactional
+    public CustomResponseEntity<BodyMessage> removeProduct(Member member, Long productId) {
+        return new CustomResponseEntity<>(BodyMessage.builder()
+                .status(StatusEnum.OK)
+                .message("상품 삭제에 성공하였습니다.")
+                .data(productRepository.deleteProductByProductIdAndMember(productId, member))
+                .build(),
+                HttpStatus.OK
+        );
     }
 }

@@ -38,4 +38,9 @@ public class ProductController {
     public CustomResponseEntity<BodyMessage> productListFindByMember(@AuthMember Member member){
         return productService.findProductListByMember(member);
     }
+
+    @DeleteMapping
+    public CustomResponseEntity<BodyMessage> productRemove(@AuthMember Member member, @RequestParam Long id){
+        return productService.removeProduct(member, id);
+    }
 }
