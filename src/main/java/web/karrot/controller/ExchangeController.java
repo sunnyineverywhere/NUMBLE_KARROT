@@ -2,6 +2,10 @@ package web.karrot.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import web.karrot.config.annotation.AuthMember;
 import web.karrot.controller.dto.ExchangeReqeustDTO;
 import web.karrot.controller.dto.response.BodyMessage;
@@ -24,4 +28,5 @@ public class ExchangeController {
     public CustomResponseEntity<BodyMessage> exchangeRemove(@AuthMember Member member, @RequestBody ExchangeReqeustDTO reqeustDTO){
         return exchangeService.removeExchange(member, reqeustDTO);
     }
+
 }

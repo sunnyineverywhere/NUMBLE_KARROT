@@ -7,15 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 import web.karrot.controller.dto.ExchangeReqeustDTO;
 import web.karrot.controller.dto.response.BodyMessage;
 import web.karrot.controller.dto.response.CustomResponseEntity;
-import web.karrot.controller.dto.response.ResponseMessage;
 import web.karrot.controller.dto.response.StatusEnum;
 import web.karrot.domain.entity.Exchange;
 import web.karrot.domain.entity.Member;
 import web.karrot.domain.entity.Product;
 import web.karrot.domain.repository.ExchangeRepository;
 import web.karrot.domain.repository.ProductRepository;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

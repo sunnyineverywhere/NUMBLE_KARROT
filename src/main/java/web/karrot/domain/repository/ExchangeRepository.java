@@ -10,5 +10,5 @@ public interface ExchangeRepository extends JpaRepository<Exchange, Long> {
     Optional<Exchange> deleteExchangeByProduct(Product product);
     Optional<Exchange> findByProductAndIsCompleted(Product product, Boolean isCompleted);
 
-    Optional<Exchange> find
+
 }
