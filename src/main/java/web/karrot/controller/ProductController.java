@@ -26,6 +26,16 @@ public class ProductController {
 
     @GetMapping("/all")
     public CustomResponseEntity<BodyMessage> productList() {
-        return productService.findProduct();
+        return productService.findProductList();
+    }
+
+    @GetMapping()
+    public CustomResponseEntity<BodyMessage> productFind(@RequestParam Long id){
+        return productService.findProduct(id);
+    }
+
+    @GetMapping()
+    public CustomResponseEntity<BodyMessage> productListFindByMember(@AuthMember Member member){
+        return productService.findProductListByMember(member);
     }
 }
