@@ -4,14 +4,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import web.karrot.controller.dto.HeartResponseDTO;
+import web.karrot.controller.dto.ProductResponseDTO;
 import web.karrot.controller.dto.response.BodyMessage;
 import web.karrot.controller.dto.response.CustomResponseEntity;
+import web.karrot.controller.dto.response.ResponseMessage;
 import web.karrot.controller.dto.response.StatusEnum;
 import web.karrot.domain.entity.Heart;
 import web.karrot.domain.entity.Member;
 import web.karrot.domain.entity.Product;
 import web.karrot.domain.repository.HeartRepository;
 import web.karrot.domain.repository.ProductRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -56,5 +62,20 @@ public class HeartService {
                     HttpStatus.OK
             );
         }
+    }
+
+    public CustomResponseEntity<BodyMessage> heartFind(Member member) {
+        List<Heart> heartList = heartRepository.findAllByMember(member);
+        List<HeartResponseDTO> responseDTOList = new ArrayList<>();
+
+        for(Heart heart : heartList){
+            HeartResponseDTO dto = new HeartResponseDTO(heart);
+            responseDTOList.add(dto);
+        }
+
+        return new CustomResponseEntity<>(BodyMessage.builder()
+                .status(StatusEnum.OK)
+                .message(ResponseMessage.DB_SELECT_SUCCESS)
+                .data(responseDTOList).build(), HttpStatus.OK);
     }
 }
