@@ -34,7 +34,7 @@ public class ProductController {
         return productService.findProduct(id);
     }
 
-    @GetMapping()
+    @GetMapping("/user")
     public CustomResponseEntity<BodyMessage> productListFindByMember(@AuthMember Member member){
         return productService.findProductListByMember(member);
     }
