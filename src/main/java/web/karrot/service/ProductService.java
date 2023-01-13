@@ -54,7 +54,7 @@ public class ProductService {
         }
     }
 
-    public CustomResponseEntity<BodyMessage> findProduct() {
+    public CustomResponseEntity<BodyMessage> findProductList() {
         List<Product> productList = productRepository.findAll();
         List<ProductResponseDTO> responseDTOList = new ArrayList<>();
 
@@ -67,6 +67,16 @@ public class ProductService {
                 .status(StatusEnum.OK)
                 .message(ResponseMessage.DB_SELECT_SUCCESS)
                 .data(responseDTOList)
+                .build();
+        return new CustomResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    public CustomResponseEntity<BodyMessage> findProduct(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("상품 조회에 실패했습니다."));
+        BodyMessage body = BodyMessage.builder()
+                .status(StatusEnum.OK)
+                .message(ResponseMessage.DB_SELECT_SUCCESS)
+                .data(new ProductResponseDTO(product))
                 .build();
         return new CustomResponseEntity<>(body, HttpStatus.OK);
     }
