@@ -14,4 +14,5 @@ public interface ExchangeRepository extends JpaRepository<Exchange, Long> {
     Optional<Exchange> findExchangeByBuyerAndProduct(Member buyer, Product product);
 
     Optional<Exchange> findExchangeByProduct_ProductId(Long productId);
+
 }
