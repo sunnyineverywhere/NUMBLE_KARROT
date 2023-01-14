@@ -1,11 +1,14 @@
 package web.karrot.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import web.karrot.config.jwt.JwtTokenProvider;
 import web.karrot.controller.dto.MessageRequestDTO;
 import web.karrot.domain.entity.ChatMessage;
@@ -15,7 +18,7 @@ import web.karrot.domain.repository.ChatMessageRepository;
 import web.karrot.domain.repository.ChatRoomRepository;
 import web.karrot.domain.repository.MemberRepository;
 
-@RequestMapping("/chat")
+@RestController
 @RequiredArgsConstructor
 public class ChatMessageController {
 

@@ -33,10 +33,11 @@ public class ChatMessage {
     private LocalDateTime createdAt;
 
     @Builder
-    public ChatMessage(Long messageId, ChatRoom chatRoom, Member sender, String contents) {
+    public ChatMessage(Long messageId, ChatRoom chatRoom, Member sender, String contents, LocalDateTime createdAt) {
         this.messageId = messageId;
         this.chatRoom = chatRoom;
         this.sender = sender;
         this.contents = contents;
+        this.createdAt = createdAt;
     }
 }

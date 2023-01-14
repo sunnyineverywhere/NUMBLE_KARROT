@@ -66,7 +66,8 @@ public class ChatRoomService {
          return new CustomResponseEntity<>(BodyMessage.builder()
                  .status(StatusEnum.OK)
                  .message(ResponseMessage.DB_SELECT_SUCCESS)
-                 .data(chatMessages),
+                 .data(chatMessages)
+                 .build(),
                  HttpStatus.OK
          );
     }
