@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Long> {
     List<ChatRoom> findAllBySubscriberOrProduct_Member(Member member, Member member2);
-
 }

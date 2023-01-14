@@ -3,7 +3,7 @@ package web.karrot.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import web.karrot.config.annotation.AuthMember;
+
 import web.karrot.controller.dto.ChatRoomRequestDTO;
 import web.karrot.controller.dto.response.BodyMessage;
 import web.karrot.controller.dto.response.CustomResponseEntity;
