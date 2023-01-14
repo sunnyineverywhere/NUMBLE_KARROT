@@ -9,9 +9,11 @@ import web.karrot.controller.dto.response.BodyMessage;
 import web.karrot.controller.dto.response.CustomResponseEntity;
 import web.karrot.controller.dto.response.ResponseMessage;
 import web.karrot.controller.dto.response.StatusEnum;
+import web.karrot.domain.entity.ChatMessage;
 import web.karrot.domain.entity.ChatRoom;
 import web.karrot.domain.entity.Member;
 import web.karrot.domain.entity.Product;
+import web.karrot.domain.repository.ChatMessageRepository;
 import web.karrot.domain.repository.ChatRoomRepository;
 import web.karrot.domain.repository.MemberRepository;
 import web.karrot.domain.repository.ProductRepository;
@@ -25,6 +27,7 @@ public class ChatRoomService {
     private final MemberRepository memberRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final ProductRepository productRepository;
+    private final ChatMessageRepository chatMessageRepository;
 
     public CustomResponseEntity<BodyMessage> addChatRoom(Member member, ChatRoomRequestDTO requestDTO) {
         Product product = productRepository.findById(requestDTO.getProductId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 상품입니다."));
@@ -56,5 +59,15 @@ public class ChatRoomService {
                 .data(chatRoomList)
                 .build()
                 , HttpStatus.OK);
+    }
+
+    public CustomResponseEntity<BodyMessage> findAllChatMessage(Member member, Long roomId) {
+         List<ChatMessage> chatMessages = chatMessageRepository.findChatMessageByChatRoom_RoomId(roomId);
+         return new CustomResponseEntity<>(BodyMessage.builder()
+                 .status(StatusEnum.OK)
+                 .message(ResponseMessage.DB_SELECT_SUCCESS)
+                 .data(chatMessages),
+                 HttpStatus.OK
+         );
     }
 }

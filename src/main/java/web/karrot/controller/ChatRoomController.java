@@ -25,6 +25,11 @@ public class ChatRoomController {
         return chatRoomService.addChatRoom(member, requestDTO);
     }
 
+    @GetMapping("/room")
+    public CustomResponseEntity<BodyMessage> ChatRoomMessageAllFind(@AuthMember Member member, @RequestParam Long id){
+        return chatRoomService.findAllChatMessage(member, id);
+    }
+
     @GetMapping("/rooms")
     public CustomResponseEntity<BodyMessage> ChatRoomListFind(@AuthMember Member member){
         return chatRoomService.findChatRoomList(member);

@@ -27,16 +27,16 @@ public class ChatMessage {
     public Member sender;
 
     @Column
-    public String message;
+    public String contents;
 
     @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder
-    public ChatMessage(Long messageId, ChatRoom chatRoom, Member sender, String messages) {
+    public ChatMessage(Long messageId, ChatRoom chatRoom, Member sender, String contents) {
         this.messageId = messageId;
         this.chatRoom = chatRoom;
         this.sender = sender;
-        this.message = message;
+        this.contents = contents;
     }
 }
