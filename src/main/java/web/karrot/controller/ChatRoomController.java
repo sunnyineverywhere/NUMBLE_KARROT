@@ -24,6 +24,7 @@ public class ChatRoomController {
     public CustomResponseEntity<BodyMessage> ChatRoomAdd(@AuthMember Member member, @RequestBody ChatRoomRequestDTO requestDTO){
         return chatRoomService.addChatRoom(member, requestDTO);
     }
+    
 
     @GetMapping("/room")
     public CustomResponseEntity<BodyMessage> ChatRoomMessageAllFind(@AuthMember Member member, @RequestParam Long id){
